@@ -27,15 +27,20 @@ class Server
 		return new self;
 	}
 
-	// Получаем информацию для сервера и обрабатываем ее
+	// Обрабатываем информацию от клиента
 	public function process()
 	{
 		// Вносим изменения в данные
 		$this->data[0][0] .= ' is ' . time();
+		if ($this->data[0][1] != '') {
+			$this->setValue('nickname', $this->data[0][1]);
+		} else {
+			$this->data[0]['nickname'] = $this->getValue('nickname');
+		}
 		return $this;
 	}
 
-	// Выводим информацию от сервера на экран
+	// Возвращаем данные клиенту
 	public function result()
 	{
 		// Отключвем кэширование
@@ -46,6 +51,8 @@ class Server
 		
 		// Возвращаем обработанные данные клиенту
 		echo json_encode($this->data); // Кодируем массив в JSON
+
+		return $this;
 	}
 
 	// Выводим информацию от сервера на экран
@@ -59,6 +66,8 @@ class Server
 
 		// Выводим результат на экран
 		print_r($_POST);
+
+		return $this;
 	}
 
 	// Конструктор класса
