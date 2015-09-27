@@ -85,10 +85,7 @@
             // Вывести содержимое формы
             function printFormData()
             {
-                // alert(getTableData_v1("editor"));
-                document.getElementById("table_result").innerHTML = JSON.stringify(getTableData_v1("editor"), null, 4);
-                console.log(getTableData_v1("editor"));
-                //alert(Date.now());
+                document.getElementById("table_result").innerHTML = JSON.stringify(getTableData("editor"), null, 4);
             }
 
             // Добавить строку в таблицу
