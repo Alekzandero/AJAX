@@ -34,14 +34,22 @@ class Server
 	}
 
 	// Выводим информацию от сервера на экран
-	public function display()
+	public function return()
 	{
+		// Отключвем кэширование
 		header("Expires: 0");
 		header("Cache-Control: no-cache, must-revalidate"); // HTTP/1.1
 		header("Pragma: no-cache"); // HTTP/1.0
-		header('Content-Type: text/html; charset=utf-8');
+        header('Content-type: application/json; charset=utf-8');
 
-		echo 'Записано на сервер: ' . $this->getValue('nickname');
+        // Получаем входные данные от клиента
+		$data = json_decode(file_get_contents('php://input'), true); // Раскодируем JSON в массив
+		
+		// Вносим изменения в данные
+		$data[0][0] .= ' is ' . time();
+
+		// Возвращаем обработанные данные клиенту
+		echo json_encode($data); // Кодируем массив в JSON
 	}
 
 	// Выводим информацию от сервера на экран
@@ -51,12 +59,6 @@ class Server
 		header("Expires: 0");
 		header("Cache-Control: no-cache, must-revalidate"); // HTTP/1.1
 		header("Pragma: no-cache"); // HTTP/1.0
-
-		// Обычный POST
-		// header('Content-Type: text/html; charset=utf-8');
-		//echo 'Получено сервером: '; 
-		//print_r($_POST); //печатаем массив, переданный в формате hello=world&good=morning
-		// echo print_r($data); // Выводим массив
 
 		// JSON
         header('Content-type: application/json; charset=utf-8');
@@ -100,6 +102,6 @@ class Server
 }
 
 //Server::start()->process()->display();
-Server::start()->displayText();
+Server::start()->return();
 
 ?>
