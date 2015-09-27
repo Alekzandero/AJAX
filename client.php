@@ -69,30 +69,14 @@
             }
 
             // Получаем данные таблицы в виде массива
-            function getTableData_v1(table_id)
+            function getTableData(table_id)
             {
                 var table = document.getElementById(table_id);
-                var res = {};//new Array();// = new Array(table.rows.length);
+                var res = {};
                 for(var i = 0, row; row = table.rows[i]; i++) {
                     res['row_'+i] = new Array(row.cells.length);
                     for(var j = 0, col; col = row.cells[j]; j++) {
                         res['row_'+i][j] = col.getElementsByTagName('input')[0].value;
-                    }
-                }
-                return res;
-            }
-
-            function getTableData(table_id)
-            {
-                var table = document.getElementById(table_id);
-                var res = new Array(table.rows.length);
-                for(var i = 0; i < table.rows.length; i++) {
-                    var row; row = table.rows[i];
-                    res[i] = new Array(row.cells.length);
-                    for(var j = 0; j < row.cells.length; j++) {
-                        var cell; cell = row.cells[j];
-                        //res[i][j] = cell.children[0].value;
-                        res[i][j] = cell.getElementsByTagName('input')[0].value;
                     }
                 }
                 return res;
