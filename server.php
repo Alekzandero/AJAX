@@ -19,6 +19,7 @@ class Server
 	const SQL_DB = 'ajax_database';
 
 	private $conn;
+	private $data;
 
 	// Запуск сервера
 	static function start()
@@ -29,47 +30,43 @@ class Server
 	// Получаем информацию для сервера и обрабатываем ее
 	public function process()
 	{
-		$this->setValue('nickname', $_GET['nickname']);
+		// Вносим изменения в данные
+		$this->data[0][0] .= ' is ' . time();
 		return $this;
 	}
 
 	// Выводим информацию от сервера на экран
-	public function return()
+	public function result()
 	{
 		// Отключвем кэширование
 		header("Expires: 0");
 		header("Cache-Control: no-cache, must-revalidate"); // HTTP/1.1
 		header("Pragma: no-cache"); // HTTP/1.0
         header('Content-type: application/json; charset=utf-8');
-
-        // Получаем входные данные от клиента
-		$data = json_decode(file_get_contents('php://input'), true); // Раскодируем JSON в массив
 		
-		// Вносим изменения в данные
-		$data[0][0] .= ' is ' . time();
-
 		// Возвращаем обработанные данные клиенту
-		echo json_encode($data); // Кодируем массив в JSON
+		echo json_encode($this->data); // Кодируем массив в JSON
 	}
 
 	// Выводим информацию от сервера на экран
-	public function displayText()
+	public function display()
 	{
 		// Отключвем кэширование
 		header("Expires: 0");
 		header("Cache-Control: no-cache, must-revalidate"); // HTTP/1.1
 		header("Pragma: no-cache"); // HTTP/1.0
+		header('Content-Type: text/html; charset=utf-8');
 
-		// JSON
-        header('Content-type: application/json; charset=utf-8');
-		$data = json_decode(file_get_contents('php://input'), true); // Раскодируем JSON в массив
-		$data[0][0] .= ' is ' . time(); // Вносим изменения в данные
-		echo json_encode($data); // Кодируем массив в JSON
+		// Выводим результат на экран
+		print_r($_POST);
 	}
 
 	// Конструктор класса
 	private function __construct()
 	{
+		// Получаем данные от клиента
+		$this->data = json_decode(file_get_contents('php://input'), true); // Раскодируем JSON		
+
 		// Подключаемся к базе данных 
 		$this->conn = new mysqli(self::SQL_SERVER, self::SQL_USER, self::SQL_PASS, self::SQL_DB);
 		if ($this->conn->connect_error) {
@@ -77,7 +74,6 @@ class Server
 		    	die('Ошибка соединения: '.mysql_error());
 			}
 		}
-		return $this;
 	}
 
 	private function __destruct()
@@ -101,7 +97,7 @@ class Server
 	}
 }
 
-//Server::start()->process()->display();
-Server::start()->return();
+// Server::start()->process()->display();
+Server::start()->process()->result();
 
 ?>

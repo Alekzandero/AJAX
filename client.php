@@ -38,20 +38,12 @@
                 }
 
                 // Что отправляем на сервер
-                //var params = "hello=world&good=morning"; // POST
-                var params = JSON.stringify(getTableData("editor")); // JSON
+                var params = JSON.stringify(getTableData("editor"));
 
-                // Открываем POST-запрос к серверу. Используется в обоих случаях POST и JSON
+                // Открываем POST-запрос к серверу
                 xmlhttp.open("POST", "server.php", true);
 
                 // Определяем параметры работы с сервером
-                
-                // POST-метод:
-                // xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-                // xmlhttp.setRequestHeader("Content-length", params.length);
-                // xmlhttp.setRequestHeader("Connection", "close" );
-                
-                // JSON-метод:
                 xmlhttp.setRequestHeader('Content-type','application/json; charset=utf-8');
 
                 // Делаем запрос к серверу
@@ -62,11 +54,6 @@
                 {
                     if(xmlhttp.readyState == 4) {
                         // Обрабатываем полученные от сервера данные
-                        
-                        // POST-метод:
-                        // document.getElementById("result").innerHTML = xmlhttp.responseText;
-                        
-                        // JSON-метод:
                         var data = JSON.parse(xmlhttp.responseText);
                         document.getElementById("result").innerHTML = JSON.stringify(data, null, 4);
                     }
