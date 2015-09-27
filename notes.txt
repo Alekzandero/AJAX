@@ -1,0 +1,2 @@
+Как искать элементы в DOM
+http://stackoverflow.com/questions/11563638/javascript-get-input-text-value
