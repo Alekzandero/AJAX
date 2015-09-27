@@ -98,8 +98,8 @@
         <form name="myForm">
             <table id="editor">
                 <tr>
-                    <td><input type="text" id="nick" name="nickname" /></td>
-                    <td><input type="text" name="update_result" size="100" /></td>
+                    <!--<td><input type="text" id="nick" name="nickname" /></td>
+                    <td><input type="text" name="update_result" size="100" /></td>-->
                 </tr>
             </table>
         </form>
