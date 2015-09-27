@@ -47,6 +47,7 @@ class Server
 	// Выводим информацию от сервера на экран
 	public function displayText()
 	{
+		// Отключвем кэширование
 		header("Expires: 0");
 		header("Cache-Control: no-cache, must-revalidate"); // HTTP/1.1
 		header("Pragma: no-cache"); // HTTP/1.0
@@ -55,13 +56,13 @@ class Server
 		// header('Content-Type: text/html; charset=utf-8');
 		//echo 'Получено сервером: '; 
 		//print_r($_POST); //печатаем массив, переданный в формате hello=world&good=morning
-		
+		// echo print_r($data); // Выводим массив
+
 		// JSON
         header('Content-type: application/json; charset=utf-8');
 		$data = json_decode(file_get_contents('php://input'), true); // Раскодируем JSON в массив
-		$data["hello"] .= " is " . time();
+		$data[0][0] .= ' is ' . time(); // Вносим изменения в данные
 		echo json_encode($data); // Кодируем массив в JSON
-		// echo print_r($data, true); // Выводим массив
 	}
 
 	// Конструктор класса

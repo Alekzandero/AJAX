@@ -38,16 +38,18 @@
 
                 // Что отправляем на сервер
                 //var params = "hello=world&good=morning"; // POST
-                var params = JSON.stringify({hello:"world", good:"morning"}); // JSON
+                var params = JSON.stringify(getTableData("editor")); // JSON
 
-                // Открываем POST-запрос к серверу
-                xmlhttp.open("POST", "server.php", true); //POST и JSON
+                // Открываем POST-запрос к серверу. Используется в обоих случаях POST и JSON
+                xmlhttp.open("POST", "server.php", true);
 
                 // Определяем параметры работы с сервером
+                
                 // POST-метод:
                 // xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
                 // xmlhttp.setRequestHeader("Content-length", params.length);
                 // xmlhttp.setRequestHeader("Connection", "close" );
+                
                 // JSON-метод:
                 xmlhttp.setRequestHeader('Content-type','application/json; charset=utf-8');
 
@@ -59,11 +61,13 @@
                 {
                     if(xmlhttp.readyState == 4) {
                         // Обрабатываем полученные от сервера данные
+                        
                         // POST-метод:
                         // document.getElementById("result").innerHTML = xmlhttp.responseText;
+                        
                         // JSON-метод:
                         var data = JSON.parse(xmlhttp.responseText);
-                        document.getElementById("result").innerHTML = data["hello"];
+                        document.getElementById("result").innerHTML = JSON.stringify(data, null, 4);
                     }
                 }
             }
@@ -74,9 +78,9 @@
                 var table = document.getElementById(table_id);
                 var res = {};
                 for(var i = 0, row; row = table.rows[i]; i++) {
-                    res['row_'+i] = new Array(row.cells.length);
+                    res[i] = new Array(row.cells.length);
                     for(var j = 0, col; col = row.cells[j]; j++) {
-                        res['row_'+i][j] = col.getElementsByTagName('input')[0].value;
+                        res[i][j] = col.getElementsByTagName('input')[0].value;
                     }
                 }
                 return res;
