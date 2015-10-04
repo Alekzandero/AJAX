@@ -1,6 +1,10 @@
 # Не загружаем архивы в Git
 архив/
 
+# Не загружаем файлы настройки Sublime
+AJAX.sublime-project
+AJAX.sublime-workspace
+
 # OS generated files #
 ######################
 .DS_Store
