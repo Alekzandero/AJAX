@@ -2,8 +2,8 @@
 архив/
 
 # Не загружаем файлы настройки Sublime
-AJAX.sublime-project
-AJAX.sublime-workspace
+*.sublime-project
+*.sublime-workspace
 
 # OS generated files #
 ######################
@@ -14,5 +14,3 @@ AJAX.sublime-workspace
 .Trashes
 ehthumbs.db
 Thumbs.db
-
-*.sublime-workspace
