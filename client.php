@@ -29,10 +29,10 @@
                 // Создаем обект для работы с AJAX
                 if (window.XMLHttpRequest) {
                     // code for IE7+, Firefox, Chrome, Opera, Safari
-                    xmlhttp=new XMLHttpRequest();
+                    xmlhttp = new XMLHttpRequest();
                 } else if (window.ActiveXObject) {
                     // code for IE6, IE5
-                    xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+                    xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
                 } else {
                     alert("Ваш браузер устарел! Также вероятно, что работа с AJAX отключена в настройках безопасности. Работа с сервисом невозможна.");
                 }
@@ -44,13 +44,13 @@
                 xmlhttp.open("POST", "server.php", true);
 
                 // Определяем параметры работы с сервером
-                xmlhttp.setRequestHeader('Content-type','application/json; charset=utf-8');
+                xmlhttp.setRequestHeader('Content-type', 'application/json; charset=utf-8');
 
                 // Делаем запрос к серверу
                 xmlhttp.send(params);
 
                 // Функция, которая отрабатывает когда завершена загрузка с сервера
-                xmlhttp.onreadystatechange=function()
+                xmlhttp.onreadystatechange = function()
                 {
                     if(xmlhttp.readyState == 4) {
                         // Обрабатываем полученные от сервера данные
